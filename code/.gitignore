@@ -1,0 +1,205 @@
+# ============================================
+# VERTRAULICHE DATEN & SECRETS
+# ============================================
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# API Keys & Credentials
+*secrets*
+*secrets*.json
+*credentials*
+*credentials*.json
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
+*.keystore
+
+# Config Files with Sensitive Data
+*config*.json
+!package.json
+!tsconfig.json
+!tailwind.config.js
+!postcss.config.js
+!vite.config.ts
+*settings*.json
+!components.json
+
+# Database & Connection Strings
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+database.yml
+*.dump
+*.sql
+
+# Authentication & Tokens
+*.token
+*.session
+.firebase
+.firebaserc
+firebase-adminsdk-*.json
+service-account*.json
+
+# Stripe & Payment Keys
+stripe*.key
+*.stripe
+payment*.key
+
+# Private Keys & Certificates
+private*.key
+id_rsa
+id_rsa.pub
+id_dsa
+id_dsa.pub
+*.private
+*.pub.key
+
+# ============================================
+# BUILD OUTPUTS & DEPENDENCIES
+# ============================================
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+.npm
+.yarn/
+.yarn-integrity
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+.conda/
+
+# Build outputs
+dist/
+dist-ssr/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+
+# ============================================
+# IDE & EDITOR
+# ============================================
+
+.idea/
+.vscode/
+!.vscode/extensions.json
+*.swp
+*.swo
+*.swn
+*~
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ============================================
+# LOGS & TEMPORARY FILES
+# ============================================
+
+*.log
+logs/
+*.local
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+.coverage
+coverage/
+htmlcov/
+.nyc_output/
+
+# ============================================
+# OS SPECIFIC
+# ============================================
+
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ============================================
+# DATABUTTON SPECIFIC
+# ============================================
+
+.databutton/
+databutton-secrets/
+
+# ============================================
+# TESTING & COVERAGE
+# ============================================
+
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+.tox/
+nosetests.xml
+test-results/
+junit.xml
+
+# ============================================
+# MISC
+# ============================================
+
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+.sass-cache/
+.parcel-cache/

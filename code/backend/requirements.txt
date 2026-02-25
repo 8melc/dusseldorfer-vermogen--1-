@@ -1,0 +1,12 @@
+# Workspace version: 1.46.40
+uvicorn[standard]==0.34.2
+python-multipart==0.0.9
+fastapi==0.115.12
+ipykernel==6.29.5
+openai
+beautifulsoup4
+requests
+stripe
+firebase_admin
+Pillow
+mangum>=0.17.0

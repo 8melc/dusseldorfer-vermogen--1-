@@ -1,0 +1,34 @@
+# ============================================
+# VERCEL ENVIRONMENT VARIABLES
+# ============================================
+# Kopiere diese Variablen in Vercel Dashboard → Settings → Environment Variables
+# 
+# FÜR EINE DEMO-WEBSITE: Du brauchst nur die Firebase Config!
+# ============================================
+
+# 1. Firebase Authentication Config (WICHTIG für Login)
+# Variable Name: DATABUTTON_EXTENSIONS
+# Variable Value: (kopiere den kompletten Wert unten, als EINE Zeile!)
+
+DATABUTTON_EXTENSIONS=[{"name":"firebase-auth","version":"1.0.0","config":{"firebaseConfig":{"apiKey":"AIzaSyBdcD9jSwV2VPYJB5SVXdA8CLrll7ZWST4","authDomain":"noomedia1-124f4.firebaseapp.com","projectId":"noomedia1-124f4","storageBucket":"noomedia1-124f4.firebasestorage.app","messagingSenderId":"1011978566199","appId":"1:1011978566199:web:9cb8cd71cd566cfa731db2"},"signInOptions":{"google":true,"emailAndPassword":true,"github":false,"facebook":false,"twitter":false,"magicLink":false},"siteName":"Kölner Vermögen","signInSuccessUrl":"/"}}]
+
+# ============================================
+# 2. Backend API URL (FÜR DEMO NICHT NÖTIG!)
+# 
+# ⚠️ FÜR EINE REINE DEMO-WEBSITE: 
+# → Setze diese Variablen NICHT
+# → Die Website funktioniert trotzdem perfekt!
+# → Nur interaktive Features (Chat, Dashboard-Daten) funktionieren nicht
+#
+# Falls du später doch interaktive Features brauchst:
+# → Deploye das Backend bei Railway.app oder Render.com
+# → Dann setze:
+#    Variable Name: VITE_API_URL
+#    Variable Value: https://deine-backend-url.com
+# ============================================
+
+# ============================================
+# OPTIONAL: App Title anpassen
+# Variable Name: VITE_APP_TITLE
+# Variable Value: Kölner Vermögen
+# ============================================

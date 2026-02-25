@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+/* Nur Section-Abstände entfernen */
+section {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.section-wrapper {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* GLOBAL RESET - Entfernt alle unerwünschten Abstände */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+#root, .App {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+@layer base {
+  :root {
+    --background: 30 50% 98%; /* #FAF8F5 */
+    --foreground: 224 71% 4%; /* #1A202C */
+ 
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+ 
+    --primary: 210 70% 15%; /* #0A2342 */
+    --primary-foreground: 210 40% 98%; /* #F7FAFC */
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 38 60% 55%; /* #C09553 */
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 214.3 31.8% 91.4%; /* #E2E8F0 */
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* LAYOUT STRUKTUR - Konsistente Container */
+@layer components {
+  /* Full-Width Wrapper für Sections mit Hintergründen */
+  .section-full-width {
+    @apply w-full;
+    position: relative;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Content Container mit max-width */
+  .container-content {
+    @apply w-full mx-auto;
+    max-width: 1400px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  /* Hero ohne seitliche Abstände */
+  .hero-container {
+    @apply w-full;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+  
+  /* Navigation Fix */
+  .nav-container {
+    @apply w-full;
+    max-width: 100%;
+    margin: 0;
+    padding: 1rem 2rem;
+  }
+  
+  /* Section Standard Padding */
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  
+  /* Responsive Container */
+  @media (max-width: 1536px) {
+    .container-content {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .container-content {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .section-padding {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    
+    .nav-container {
+      padding: 0.75rem 1rem;
+    }
+  }
+}
+
+/* KOMPONENTEN STYLES - Bestehende Styles */
+@layer components {
+  /* Filter-Komponenten */
+  .filter-container {
+    @apply bg-white border border-gray-100 shadow-md rounded-xl mb-8;
+  }
+  
+  .filter-dropdown {
+    @apply bg-white border border-gray-300 rounded-lg px-4 py-3
+      text-sm text-[#0B0E28] w-full appearance-none
+      focus:outline-none focus:ring-2 focus:ring-[#C8A96F] focus:border-transparent;
+  }
+  
+  /* Premium Berater-Karte */
+  .premium-advisor-card {
+    @apply bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200 flex flex-col h-full;
+  }
+  
+  .card-header {
+    @apply bg-gradient-to-br from-[#F5F1EB] to-[#E6DFD6] p-6 pb-0;
+  }
+  
+  .photo-container {
+    @apply flex justify-center;
+  }
+  
+  .premium-avatar {
+    @apply w-24 h-24 rounded-full object-cover border-4 border-white shadow-md -mb-12;
+  }
+  
+  .card-content {
+    @apply p-6 pt-16 flex flex-col flex-grow;
+  }
+  
+  .premium-name {
+    @apply font-semibold text-[#0B0E28] text-lg text-center mb-1;
+  }
+  
+  .role-badge {
+    @apply bg-[#F5F1EB] text-[#C8A96F] text-xs font-medium py-1 px-3 
+      rounded-full mx-auto mb-4;
+  }
+  
+  .expertise-tags {
+    @apply flex flex-wrap gap-2 justify-center mb-4;
+  }
+  
+  .expertise-tag {
+    @apply flex items-center text-xs text-gray-700;
+  }
+  
+  .tag-icon {
+    @apply text-[#C8A96F] mr-1;
+  }
+  
+  .location-info {
+    @apply flex items-center justify-center text-xs text-gray-600 mb-3;
+  }
+  
+  .availability-info {
+    @apply mt-auto pt-4 border-t border-gray-100 text-center;
+  }
+  
+  .availability-options {
+    @apply flex flex-wrap gap-1 justify-center mt-1 mb-4;
+  }
+  
+  .availability-badge {
+    @apply bg-[#F5F1EB] text-gray-700 text-xs py-1 px-2 rounded;
+  }
+  
+  .premium-button {
+    @apply flex items-center justify-center rounded-full bg-[#C8A96F] text-white py-2.5 px-4
+      hover:bg-[#B69A5F] transition-colors duration-200 w-full font-medium text-sm mt-auto;
+  }
+}
+
+/* BADGE STYLES */
+@layer components {
+  .usp-badge {
+    @apply bg-[#C8A96F] text-white text-xs px-2 py-1 rounded-full;
+  }
+  
+  .premium-badge {
+    @apply bg-[#0B0E28] text-white text-xs px-2 py-1 rounded-full;
+  }
+  
+  .advisor-action-btn {
+    @apply text-sm px-3 py-1.5 rounded-md transition-colors duration-200;
+  }
+}
+
+/* BILDER FIX - Keine unerwünschten Gaps */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
