@@ -25,6 +25,8 @@ const Signup = lazy(() => import("./pages/Signup.tsx"));
 const TrustedAdvisorsPage = lazy(() => import("./pages/TrustedAdvisorsPage.tsx"));
 const UserInterestsSelector_preview = lazy(() => import("./pages/UserInterestsSelector_preview.tsx"));
 const V2_artikel_rheinberg = lazy(() => import("./pages/V2_artikel_rheinberg.tsx"));
+const Sitemap = lazy(() => import("./pages/Sitemap.tsx"));
+const EmailListe = lazy(() => import("./pages/EmailListe.tsx"));
 
 export const userRoutes: RouteObject[] = [
 
@@ -59,5 +61,9 @@ export const userRoutes: RouteObject[] = [
 	{ path: "/userinterestsselector_preview", element: <UserInterestsSelector_preview />},
 	{ path: "/v2-artikel-rheinberg", element: <V2_artikel_rheinberg />},
 	{ path: "/v2_artikel_rheinberg", element: <V2_artikel_rheinberg />},
+	{ path: "/sitemap", element: <Sitemap />},
+	{ path: "/uebersicht", element: <Sitemap />},
+	{ path: "/email-liste", element: <EmailListe />},
+	{ path: "/emailliste", element: <EmailListe />},
 
 ];
