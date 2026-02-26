@@ -16,40 +16,29 @@ import {
 import { firebaseAuth } from "./firebase";
 
 const validateConfig = () => {
-  console.log("Firebase auth extension enabled");
+  if (firebaseAuth) {
+    console.log("Firebase auth extension enabled");
+  } else {
+    console.warn("Firebase auth not configured, running in demo mode");
+  }
 };
 
-/**
- * Sign in with Google popup.
- *
- * TODO: Set providers based on config
- */
 const signInWithGoogle = async (): Promise<UserCredential | null> => {
+  if (!firebaseAuth) { console.warn("Firebase auth not available"); return null; }
   const provider = new GoogleAuthProvider();
   provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
-
   return signInWithPopup(firebaseAuth, provider);
 };
 
-/**
- * Sign out the user.
- */
 const signOut = async (): Promise<void> => {
+  if (!firebaseAuth) return;
   return firebaseSignOut(firebaseAuth);
 };
 
-/**
- * Returns the logged in user if logged in, otherwise null.
- */
 const getCurrentUser = (): User | null => {
-  return firebaseAuth.currentUser;
+  return firebaseAuth?.currentUser ?? null;
 };
 
-/**
- * Updates the display name or photo URL of the current user.
- *
- * https://firebase.google.com/docs/auth/web/manage-users#update_a_users_profile
- */
 const updateCurrentUser = async (
   user: User,
   payload: Partial<Pick<UserInfo, "displayName" | "photoURL">>,
@@ -57,44 +46,29 @@ const updateCurrentUser = async (
   return updateProfile(user, payload);
 };
 
-/**
- * Updates the email of the current user.
- */
 const updateCurrentUserEmail = async (user: User, email: string) => {
   return updateEmail(user, email);
 };
 
-/**
- * Sends an email verification to the current user.
- */
 const sendEmailVerification = async (user: User) => {
   return firebaseSendEmailVerification(user);
 };
 
-/**
- * Updates the password of the current user.
- */
 const updateCurrentUserPassword = async (user: User, newPassword: string) => {
   return updatePassword(user, newPassword);
 };
 
-/**
- * Sends a password reset email to the current user.
- */
 const sendPasswordResetEmail = async (email: string) => {
+  if (!firebaseAuth) { console.warn("Firebase auth not available"); return; }
   return firebaseSendPasswordResetEmail(firebaseAuth, email);
 };
 
-/**
- * Reauthenticates the current user with credentials for
- * security sensitive operations.
- */
 const reauthenticateUser = async (user: User, credential: AuthCredential) => {
   return reauthenticateWithCredential(user, credential);
 };
 
 const getAuthToken = async (): Promise<string | null> => {
-  return firebaseAuth.currentUser?.getIdToken() ?? null;
+  return firebaseAuth?.currentUser?.getIdToken() ?? null;
 };
 
 const getAuthHeaderValue = async (): Promise<string> => {

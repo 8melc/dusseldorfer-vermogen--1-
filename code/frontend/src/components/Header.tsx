@@ -72,7 +72,7 @@ export function Header() {
         {/* Logo */}
         <NavLink to="/" className="flex items-center">
           <img
-            src="https://static.databutton.com/public/ee4636b7-80c9-4c5a-bd78-1ceec3fa07de/logo_duesseldorfervermoegen_900x350.png"
+            src="/images/logo_koelnervermoegen_900x350.png"
             alt="Kölner Vermögen Logo"
             className="h-14 md:h-14 w-auto object-contain"
           />

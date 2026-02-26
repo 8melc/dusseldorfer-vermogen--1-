@@ -1,14 +1,12 @@
 import { firebaseApp } from "app"; // Import the Databutton-provided firebaseApp
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, type Firestore } from "firebase/firestore";
 
-// Initialize Firestore with the Databutton-provided firebaseApp
-const db = getFirestore(firebaseApp);
+// Initialize Firestore only if firebaseApp is available
+let db: Firestore | null = null;
+if (firebaseApp) {
+  db = getFirestore(firebaseApp);
+} else {
+  console.warn("[Firebase Utils] No firebaseApp available, Firestore disabled.");
+}
 
-// Export the Firestore instance for use in other parts of the app
 export { db };
-
-// For Firebase Authentication, directly import firebaseAuth from "app" where needed:
-// import { firebaseAuth } from "app";
-
-// For the Firebase App instance, directly import firebaseApp from "app" where needed:
-// import { firebaseApp } from "app";

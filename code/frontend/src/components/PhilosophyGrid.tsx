@@ -154,7 +154,7 @@ export const PhilosophyGrid: React.FC<Props> = (props) => {
               <motion.div 
                 className="absolute inset-0 w-full h-full bg-cover bg-center"
                 style={{
-                  backgroundImage: "url(https://static.databutton.com/public/ee4636b7-80c9-4c5a-bd78-1ceec3fa07de/phil_main.jpg)",
+                  backgroundImage: "url(/images/henki-J53aYMclSTw-unsplash.jpg)",
                 }}
                 initial={{ scale: 1 }}
                 animate={{ 
@@ -209,6 +209,14 @@ export const PhilosophyGrid: React.FC<Props> = (props) => {
                     transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                     className="max-w-4xl mx-auto"
                   >
+                    <img
+                      src="/images/logo_investmentphilosophie_900x350.png"
+                      alt="Die Kölner Investmentphilosophie"
+                      className="w-[200px] sm:w-[300px] md:w-[400px] lg:w-[500px] h-auto mx-auto mb-6 sm:mb-8 md:mb-10"
+                      style={{
+                        filter: 'brightness(0) invert(1) drop-shadow(0 4px 16px rgba(0,0,0,0.5))'
+                      }}
+                    />
                     <p className="text-white/90 font-light mb-4 sm:mb-6 md:mb-8 lg:mb-10 text-sm sm:text-base md:text-lg lg:text-xl"
                        style={{ 
                          lineHeight: '1.4',
