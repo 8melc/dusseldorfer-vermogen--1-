@@ -87,13 +87,6 @@ export default defineConfig({
 			},
 		},
 	},
-	resolve: {
-		alias: {
-			resolve: {
-				alias: {
-					"@": path.resolve(__dirname, "./src"),
-				},
-			},
-		},
-	},
+	// Path resolution handled by vite-tsconfig-paths plugin (reads tsconfig.json paths)
+	// No manual resolve.alias needed – tsConfigPaths() handles @/*, @/components/ui/*, etc.
 });
