@@ -55,6 +55,16 @@ type FirebaseExtensionConfig = z.infer<typeof configSchema>;
 // This is set by vite.config.ts
 declare const __FIREBASE_CONFIG__: string;
 
-export const config: FirebaseExtensionConfig = configSchema.parse(
-  JSON.parse(__FIREBASE_CONFIG__),
-);
+const parseConfig = (): FirebaseExtensionConfig | null => {
+  try {
+    const raw = typeof __FIREBASE_CONFIG__ !== "undefined" ? __FIREBASE_CONFIG__ : "null";
+    const parsed = JSON.parse(raw);
+    if (!parsed) return null;
+    return configSchema.parse(parsed);
+  } catch (e) {
+    console.warn("[Firebase Config] Could not parse firebase config, auth disabled:", e);
+    return null;
+  }
+};
+
+export const config: FirebaseExtensionConfig | null = parseConfig();

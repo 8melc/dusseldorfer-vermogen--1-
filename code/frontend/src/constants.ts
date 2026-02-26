@@ -29,8 +29,7 @@ export const API_PREFIX_PATH = __API_PREFIX_PATH__;
 declare const __WS_API_URL__: string;
 export const WS_API_URL = __WS_API_URL__;
 
-declare const __DATABUTTON_API_PREFIX__: string;
-export const DATABUTTON_API_PREFIX = __DATABUTTON_API_PREFIX__;
+// Legacy: DATABUTTON_API_PREFIX removed, using API_URL instead
 
 declare const __APP_BASE_PATH__: string;
 export const APP_BASE_PATH = __APP_BASE_PATH__;

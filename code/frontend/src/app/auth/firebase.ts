@@ -1,19 +1,27 @@
 import { type FirebaseApp, initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { type Auth, getAuth } from "firebase/auth";
+import { type Firestore, getFirestore } from "firebase/firestore";
+import { type FirebaseStorage, getStorage } from "firebase/storage";
 import { config } from "./config";
 
-// Export the firebase app instance in case it's needed by other modules.
-export const firebaseApp: FirebaseApp = initializeApp(config.firebaseConfig);
+let firebaseApp: FirebaseApp | null = null;
+let firebaseAuth: Auth | null = null;
+let firestore: Firestore | null = null;
+let firebaseDb: Firestore | null = null;
+let firebaseStorage: FirebaseStorage | null = null;
 
-// Export the firebase auth instance
-export const firebaseAuth = getAuth(firebaseApp);
+if (config) {
+  try {
+    firebaseApp = initializeApp(config.firebaseConfig);
+    firebaseAuth = getAuth(firebaseApp);
+    firestore = getFirestore(firebaseApp);
+    firebaseDb = firestore;
+    firebaseStorage = getStorage(firebaseApp);
+  } catch (e) {
+    console.warn("[Firebase] Initialization failed, running without Firebase:", e);
+  }
+} else {
+  console.warn("[Firebase] No config found, running without Firebase auth.");
+}
 
-// Export the firebase firestore instance
-export const firestore = getFirestore(firebaseApp);
-// This is deprecated, use firestore instead, that's what gemini is guessing 9/10 times
-export const firebaseDb = firestore; // @deprecated
-
-// Export the firebase storage instance
-export const firebaseStorage = getStorage(firebaseApp);
+export { firebaseApp, firebaseAuth, firestore, firebaseDb, firebaseStorage };

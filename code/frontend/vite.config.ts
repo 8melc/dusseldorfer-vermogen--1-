@@ -43,30 +43,13 @@ const getExtensionConfig = (name: string): string => {
 };
 
 const buildVariables = () => {
-	const appId = process.env.VITE_APP_ID || process.env.DATABUTTON_PROJECT_ID || "koelner-vermoegen";
-	
-	// Databutton API Prefix (e.g., https://api.databutton.com/_projects/.../routes)
-	const databuttonApiPrefix = process.env.VITE_DATABUTTON_API_PREFIX || "";
-	
-	// If no API URL is set, use empty string (frontend will work, but API calls will fail)
-	// This allows frontend to be deployed without backend
+	const appId = process.env.VITE_APP_ID || "koelner-vermoegen";
+
 	const apiUrl = process.env.VITE_API_URL || (process.env.NODE_ENV === "production" ? "" : "http://localhost:8000");
 	const wsApiUrl = process.env.VITE_WS_API_URL || (apiUrl ? apiUrl.replace(/^http/, "ws") : "");
-	
-	// Extract host and path from Databutton API Prefix if provided
-	let apiHost = process.env.VITE_API_HOST || "";
-	let apiPath = process.env.VITE_API_PATH || "";
-	
-	if (databuttonApiPrefix) {
-		try {
-			const url = new URL(databuttonApiPrefix);
-			apiHost = url.host;
-			apiPath = url.pathname;
-		} catch (e) {
-			console.warn("Invalid VITE_DATABUTTON_API_PREFIX:", databuttonApiPrefix);
-		}
-	}
-	
+
+	const apiHost = process.env.VITE_API_HOST || "";
+	const apiPath = process.env.VITE_API_PATH || "";
 	const apiPrefixPath = process.env.VITE_API_PREFIX_PATH || "";
 
 	const defines: Record<string, string> = {
@@ -74,9 +57,8 @@ const buildVariables = () => {
 		__API_PATH__: JSON.stringify(apiPath),
 		__API_HOST__: JSON.stringify(apiHost),
 		__API_PREFIX_PATH__: JSON.stringify(apiPrefixPath),
-		__API_URL__: JSON.stringify(databuttonApiPrefix || apiUrl),
+		__API_URL__: JSON.stringify(apiUrl),
 		__WS_API_URL__: JSON.stringify(wsApiUrl),
-		__DATABUTTON_API_PREFIX__: JSON.stringify(databuttonApiPrefix),
 		__APP_BASE_PATH__: JSON.stringify(process.env.VITE_APP_BASE_PATH || "/"),
 		__APP_TITLE__: JSON.stringify(process.env.VITE_APP_TITLE || "Kölner Vermögen"),
 		__APP_FAVICON_LIGHT__: JSON.stringify(process.env.VITE_APP_FAVICON_LIGHT || "/favicon-light.svg"),

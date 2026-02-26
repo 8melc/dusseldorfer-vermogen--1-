@@ -15,9 +15,8 @@ interface FinanzCategory {
 }
 
 export function initWithArticleQuestion(question: string) {
-  const { openChat, setShowWelcome, setPendingQuestion } = useChatStore.getState();
-  setPendingQuestion(question);
-  setShowWelcome(false);
+  const { openChat } = useChatStore.getState();
+  // KI-Funktion deaktiviert – Panel öffnen ohne Frage zu stellen
   openChat({ view: "finanzKompass", sidebarOnly: false });
 }
 
@@ -331,33 +330,15 @@ export function ChatPanel({ view = "default" }: Props) {
     }
   };
 
-  // Finanzkompass Ansicht
+  // Finanzkompass Ansicht - KI deaktiviert
   if (view === 'finanzKompass') {
-    const handleCategorySelect = (categoryId: string) => {
-      setSelectedCategory(categoryId);
-    };
-
     return (
       <div className="w-full h-full flex flex-col bg-gradient-to-br from-[#F5F1E6] via-[#F7F3EA] to-[#EFE8D6]">
         {/* Header */}
         <div className="p-6 border-b border-transparent flex items-center justify-between bg-white/90 backdrop-blur rounded-t-3xl shadow-lg shadow-[#d4c7aa]/40 mx-6 mt-6">
-          <div className="flex items-center gap-3">
-            {(selectedCategory || chatHistory.length > 0) && (
-              <button
-                className="h-11 w-11 flex items-center justify-center rounded-2xl bg-gradient-to-br from-[#C8A96F] to-[#B08A55] text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
-                onClick={() => {
-                  setSelectedCategory(null);
-                  setChatHistory([]);
-                  setFkInputValue('');
-                }}
-              >
-                <ArrowLeft className="h-5 w-5" />
-              </button>
-            )}
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#C8A96F]/80">FinanzKompass</p>
-              <h3 className="text-2xl font-serif text-[#0B0E28]">Ihr persönlicher Navigator</h3>
-            </div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-[#C8A96F]/80">FinanzKompass</p>
+            <h3 className="text-2xl font-serif text-[#0B0E28]">Ihr persönlicher Navigator</h3>
           </div>
           <button
             className="h-11 w-11 flex items-center justify-center rounded-2xl bg-gradient-to-br from-[#0B0E28] to-[#121740] text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
@@ -367,121 +348,25 @@ export function ChatPanel({ view = "default" }: Props) {
           </button>
         </div>
 
-        {/* Content */}
-        <div className="flex-1 overflow-hidden px-6 pb-4">
-          <div className="h-full overflow-y-auto rounded-3xl bg-white/70 backdrop-blur-lg border border-white/60 shadow-xl shadow-[#d4c7aa]/30 px-6 pt-5 pb-2">
-            {chatHistory.length === 0 ? (
-              <div className="space-y-6">
-                <div className="text-center">
-                  <p className="text-lg font-serif mb-2 text-[#0B0E28]">
-                    Wie kann ich Ihnen heute helfen?
-                  </p>
-                  <p className="text-sm text-[#0B0E28]/70">
-                    Wählen Sie eine Kategorie oder stellen Sie eine spezifische Frage
-                  </p>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {FINANZ_CATEGORIES.map(category => (
-                    <div
-                      key={category.id}
-                      className="p-6 bg-white border border-[#E8D9B9]/60 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#C8A96F]/70 hover:bg-gradient-to-br hover:from-white hover:to-[#F5EFD9]"
-                      onClick={() => handleCategorySelect(category.id)}
-                    >
-                      <h4 className="font-serif text-lg text-[#0B0E28]">
-                        {category.title}
-                      </h4>
-                      <div className="mt-3 mb-4 h-[2px] w-10 bg-gradient-to-r from-[#C8A96F] to-[#E3D4B2]" />
-                      <p className="text-sm text-[#0B0E28]/70">
-                        Spezialisierte Beratung in diesem Bereich
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                {selectedCategory && (
-                  <div className="mt-6 p-6 bg-white/90 border border-[#E8D9B9]/70 rounded-2xl shadow-lg">
-                    <h4 className="font-serif text-lg mb-4 text-[#0B0E28]">
-                      Häufige Fragen:
-                    </h4>
-                    <div className="space-y-3">
-                      {FINANZ_CATEGORIES.find(c => c.id === selectedCategory)?.questions.map((q, i) => (
-                        <button
-                          key={i}
-                          className="w-full text-left p-4 bg-gradient-to-r from-[#F8F5ED] to-[#F3EBD8] border border-[#E8D9B9]/60 rounded-2xl text-[#0B0E28] hover:border-[#C8A96F] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
-                          onClick={() => handleQuestionSelect(q)}
-                        >
-                          {q}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
+        {/* Content - Deaktiviert */}
+        <div className="flex-1 overflow-hidden px-6 pb-4 flex items-center justify-center">
+          <div className="max-w-md w-full bg-white/90 border border-white/50 rounded-3xl shadow-xl shadow-[#d4c7aa]/40 p-8">
+            <div className="flex justify-center mb-5">
+              <div className="h-16 w-16 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#0B0E28] to-[#161b45] shadow-md shadow-[#0b0e28]/40">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9 text-[#C8A96F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
               </div>
-            ) : (
-              <div className="space-y-4">
-                {chatHistory.map((msg, i) => (
-                  <div
-                    key={i}
-                    className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}
-                  >
-                    <div
-                      className={`max-w-[80%] rounded-3xl px-5 py-4 shadow-md transition-all duration-300 ${
-                        msg.type === "user"
-                          ? "bg-gradient-to-br from-[#C8A96F] to-[#B08A55] text-white rounded-tr-sm"
-                          : "bg-white text-[#0B0E28] border border-[#E8D9B9]/60 rounded-tl-sm"
-                      }`}
-                    >
-                      {msg.type === "assistant" ? (
-                        <Markdown>{msg.content}</Markdown>
-                      ) : (
-                        msg.content
-                      )}
-                    </div>
-                  </div>
-                ))}
-                {isFkLoading && (
-                  <div className="flex justify-start">
-                    <div className="px-5 py-4 rounded-3xl rounded-tl-sm bg-white text-[#0B0E28] border border-[#E8D9B9]/60 shadow-md">
-                      Ich denke nach...
-                    </div>
-                  </div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
-            )}
-          </div>
-        </div>
+            </div>
 
-        {/* Input */}
-        <div className="px-6 pb-6">
-          <div className="p-4 bg-white/90 backdrop-blur border border-white/70 shadow-xl shadow-[#d4c7aa]/30 rounded-3xl">
-            <div className="flex items-center gap-3">
-              <input
-                type="text"
-                className="flex-1 px-4 py-3 border border-transparent rounded-2xl bg-[#F7F3EA] text-[#0B0E28] focus:outline-none focus:ring-2 focus:ring-[#C8A96F]/50 focus:border-[#C8A96F]/40 transition-all duration-300"
-                placeholder="Stellen Sie Ihre Frage..."
-                value={fkInputValue}
-                onChange={(e) => setFkInputValue(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && fkInputValue.trim() && !isFkLoading) {
-                    handleQuestionSelect(fkInputValue);
-                    setFkInputValue('');
-                  }
-                }}
-              />
-              <button
-                onClick={() => {
-                  if (fkInputValue.trim() && !isFkLoading) {
-                    handleQuestionSelect(fkInputValue);
-                    setFkInputValue('');
-                  }
-                }}
-                disabled={isFkLoading}
-                className="px-6 py-3 font-medium bg-gradient-to-br from-[#0B0E28] to-[#121740] text-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60"
-              >
-                Senden
-              </button>
+            <h2 className="text-[1.75rem] leading-tight font-serif text-center mb-2 text-[#0B0E28]">
+              FinanzKompass
+            </h2>
+
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#F8F5ED] to-[#F2E9D4] border border-[#E8D9B9]/70 shadow-inner">
+              <p className="text-[#0B0E28]/85 text-center">
+                Aktuell ist die KI-Funktion deaktiviert.
+              </p>
             </div>
           </div>
         </div>
@@ -496,7 +381,7 @@ export function ChatPanel({ view = "default" }: Props) {
       <div className="px-6 pt-6">
         <div className="p-6 flex items-center justify-between bg-white/90 backdrop-blur border border-transparent rounded-3xl shadow-xl shadow-[#d4c7aa]/30">
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-[#C8A96F]/80">Aura Assistent</p>
+            <p className="text-xs uppercase tracking-[0.35em] text-[#C8A96F]/80">FinanzKompass</p>
             <h2 className="text-2xl font-serif text-[#0B0E28]">
               Ihr persönlicher FinanzKompass
             </h2>
@@ -530,7 +415,7 @@ export function ChatPanel({ view = "default" }: Props) {
           <div className="flex-grow overflow-y-auto px-5 pt-5 pb-1 space-y-4 relative">
             <div className="flex flex-col space-y-4">
               {/* Willkommensfenster */}
-              {messages.length === 0 && !isLoading && showWelcome && (
+              {messages.length === 0 && !isLoading && (
                 <div className="flex-grow flex flex-col items-center justify-center">
                   <div className="max-w-2xl w-full bg-white/90 border border-white/50 rounded-3xl shadow-xl shadow-[#d4c7aa]/40 p-8 md:p-9">
                     <div className="flex justify-center mb-5">
@@ -542,39 +427,13 @@ export function ChatPanel({ view = "default" }: Props) {
                     </div>
 
                     <h2 className="text-[1.75rem] leading-tight font-serif text-center mb-2 text-[#0B0E28]">
-                      Willkommen bei Ihrem persönlichen FinanzKompass
+                      FinanzKompass
                     </h2>
 
-                    <p className="text-sm text-center mb-5 text-[#0B0E28]/70">
-                      Ihr digitaler Experte für die Kölner Vermögensphilosophie
-                    </p>
-
                     <div className="p-4 rounded-2xl mb-6 bg-gradient-to-br from-[#F8F5ED] to-[#F2E9D4] border border-[#E8D9B9]/70 shadow-inner">
-                      <p className="text-[#0B0E28]/85">
-                        Guten Tag! Ich bin Aura, Ihr persönlicher FinanzKompass-Assistent. Wie kann ich Sie heute in Vermögensfragen unterstützen?
+                      <p className="text-[#0B0E28]/85 text-center">
+                        Aktuell ist die KI-Funktion deaktiviert.
                       </p>
-                    </div>
-
-                    <div className="space-y-2.5">
-                      {quickStartButtons.map((button, index) => (
-                        <button
-                          key={index}
-                          onClick={() => handleQuickButtonClick(button.query)}
-                          className="w-full py-3.5 px-5 text-left bg-gradient-to-r from-[#F7F3EA] to-[#EDE3D0] border border-transparent rounded-3xl text-[#0B0E28] hover:border-[#C8A96F] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center gap-3"
-                        >
-                          <span className="h-8 w-8 flex items-center justify-center rounded-2xl bg-[#C8A96F]/15 text-[#C8A96F] font-semibold">→</span>
-                          <span>{button.label}</span>
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="mt-5 text-center">
-                      <button
-                        onClick={hideWelcome}
-                        className="text-xs text-[#0B0E8]/55 hover:text-[#0B0E28] transition-colors"
-                      >
-                        Oder stellen Sie Ihre eigene Frage...
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -612,56 +471,24 @@ export function ChatPanel({ view = "default" }: Props) {
               <div ref={messagesEndRef} />
             </div>
 
-            {messages.length === 0 && !isLoading && !showWelcome && (
-              <div className="space-y-6">
-                <div className="p-6 rounded-3xl bg-white/90 border border-white/70 shadow-xl shadow-[#d4c7aa]/35">
-                  <h3 className="text-lg font-serif mb-2 text-[#0B0E28]">
-                    Wie kann ich Ihnen behilflich sein?
-                  </h3>
-                  <p className="text-sm text-[#0B0E28]/70">
-                    Stellen Sie Ihre Frage zu Vermögensthemen oder wählen Sie eines der Themen unten.
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  {quickQuestions.map((q, index) => (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={() => handleQuickQuestionClick(q)}
-                      className="inline-flex items-center gap-2 py-3 px-5 text-sm bg-gradient-to-r from-[#F8F5ED] to-[#F1E8D3] border border-transparent text-[#0B0E28] rounded-3xl hover:border-[#C8A96F]/80 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
-                    >
-                      <span className="h-6 w-6 flex items-center justify-center rounded-2xl bg-[#C8A96F]/15 text-[#C8A96F] font-semibold">+</span>
-                      {q}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
 
-          {/* Input Area */}
+          {/* Input Area - KI deaktiviert */}
           <div className="border-t border-white/55 bg-white/80 backdrop-blur px-6 py-3">
             <div className="relative flex items-center">
               <textarea
-                className="w-full p-3.5 pr-14 border border-transparent rounded-3xl resize-none outline-none bg-[#F7F3EA] text-[#0B0E28] focus:border-[#C8A96F]/40 focus:ring-2 focus:ring-[#C8A96F]/25 transition-all duration-300 shadow-inner"
-                placeholder="Ihre Frage eingeben..."
+                className="w-full p-3.5 pr-14 border border-transparent rounded-3xl resize-none outline-none bg-[#F7F3EA] text-[#0B0E28]/40 transition-all duration-300 shadow-inner cursor-not-allowed"
+                placeholder="KI-Funktion aktuell deaktiviert"
                 rows={1}
-                value={inputValue}
-                onChange={handleInputChange}
-                onKeyPress={(event) => {
-                  if (event.key === 'Enter' && !event.shiftKey) {
-                    event.preventDefault();
-                    handleSendMessage();
-                  }
-                }}
-                disabled={isLoading}
+                value=""
+                readOnly
+                disabled
               />
               <button
                 type="button"
-                onClick={() => handleSendMessage()}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#0B0E28] to-[#121740] text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#0B0E28] to-[#121740] text-white shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
                 aria-label="Nachricht senden"
-                disabled={inputValue.trim() === "" || isLoading}
+                disabled
               >
                 {isLoading ? (
                   <svg

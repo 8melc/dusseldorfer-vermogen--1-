@@ -217,24 +217,18 @@ async def generate_schema(request: SchemaGenerationRequest) -> SchemaGenerationR
             "collections": schema,
         }
 
-        # Delete previous schema files
-        all_json_files = db.storage.json.list()
-        for file in all_json_files:
-            if file.name.startswith("firestore-schema-"):
-                print(f"Deleting previous schema file: {file.name}")
-                db.storage.json.delete(file.name)
-
-        # Create dynamic filename with timestamp
-        schema_filename = f"firestore-schema-{int(time.time())}"
-
-        # Save schema to storage using databutton db
-        db.storage.json.put(schema_filename, result)
-
         # Generate Markdown structure diagram
         markdown_content = generate_structure_diagram(schema)
 
-        # Structure diagram automatically overwrites previous version
-        db.storage.text.put("firestore_structure_diagram", markdown_content)
+        # Store schema in Firestore if available
+        if get_firestore_client():
+            try:
+                fs = get_firestore_client()
+                fs.collection("_schemas").document("latest").set(result)
+                fs.collection("_schemas").document("diagram").set({"content": markdown_content})
+                print("Schema saved to Firestore")
+            except Exception as e:
+                print(f"Could not save schema to Firestore: {e}")
 
         return SchemaGenerationResponse(
             status="success",
@@ -302,10 +296,11 @@ def generate_structure_diagram(schema_data: Dict[str, Any]) -> str:
 async def get_structure_diagram() -> Dict[str, Any]:
     """Get the structure diagram from storage"""
     try:
-        # Get the structure diagram
-        diagram = db.storage.text.get("firestore_structure_diagram")
-
-        return {"status": "success", "diagram": diagram}
+        fs = get_firestore_client()
+        doc = fs.collection("_schemas").document("diagram").get()
+        if doc.exists:
+            return {"status": "success", "diagram": doc.to_dict().get("content", "")}
+        return {"status": "error", "message": "No diagram found. Run /generate-schema first.", "diagram": None}
     except Exception as e:
         return {
             "status": "error",
@@ -318,30 +313,17 @@ async def get_structure_diagram() -> Dict[str, Any]:
 async def get_schema() -> Dict[str, Any]:
     """Get the latest generated schema from storage"""
     try:
-        # List all schema files
-        all_json_files = db.storage.json.list()
-        schema_files = [file.name for file in all_json_files if file.name.startswith("firestore-schema-")]
-
-        # Sort by timestamp (newest first)
-        schema_files.sort(reverse=True)
-
-        if not schema_files:
+        fs = get_firestore_client()
+        doc = fs.collection("_schemas").document("latest").get()
+        if doc.exists:
+            schema = doc.to_dict()
             return {
-                "status": "error",
-                "message": "No schema files found",
-                "schema": None,
+                "status": "success",
+                "schema": schema,
+                "last_generated": schema.get("metadata", {}).get("generated_at"),
+                "filename": "firestore-latest",
             }
-
-        # Get the latest schema
-        latest_schema_file = schema_files[0]
-        schema = db.storage.json.get(latest_schema_file)
-
-        return {
-            "status": "success",
-            "schema": schema,
-            "last_generated": schema.get("metadata", {}).get("generated_at"),
-            "filename": latest_schema_file,
-        }
+        return {"status": "error", "message": "No schema found. Run /generate-schema first.", "schema": None}
     except Exception as e:
         return {
             "status": "error",
