@@ -1,0 +1,1 @@
+import{r as t}from"./vendor-fc588d4b.js";var f=globalThis!=null&&globalThis.document?t.useLayoutEffect:()=>{};function a(u){const e=t.useRef(u);return t.useEffect(()=>{e.current=u}),t.useMemo(()=>(...s)=>{var r;return(r=e.current)==null?void 0:r.call(e,...s)},[])}export{a,f as u};
